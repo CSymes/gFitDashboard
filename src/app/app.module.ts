@@ -10,6 +10,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { TitlebarComponent } from './titlebar/titlebar.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { ReadScopes } from './utils/endpoints';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import { HomePageComponent } from './home-page/home-page.component';
       providers: [
         {
           id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider(environment.googleOauthClientId)
+          provider: new GoogleLoginProvider(environment.googleOauthClientId, {
+            scope: ReadScopes.join(" ")
+          })
         }
       ]
     }
