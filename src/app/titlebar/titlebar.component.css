@@ -1,0 +1,15 @@
+nav {
+  width: calc(100% - 40px);
+  text-align: right;
+
+  padding: 20px;
+}
+
+.b-login {
+  color: white;
+  background-color: grey;
+
+  padding: 5px 10px;
+  border: 1px grey;
+  border-radius: 2px;
+}
