@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login-page',
@@ -13,7 +14,7 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     // wait until the service is loaded
-    this.authService.initState.subscribe(value => {
+    this.authService.initState.pipe(take(1)).subscribe(value => {
       // then request a Google sign-in
       this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
         console.log('user login flow:', user)

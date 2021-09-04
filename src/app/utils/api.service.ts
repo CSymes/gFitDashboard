@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SocialUser } from 'angularx-social-login';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { BASE_URI } from './endpoints';
 
 @Injectable({
@@ -18,7 +19,7 @@ export class ApiService {
     console.log(fullEndpoint);
     console.log(options);
 
-    return this.http.get<T>(fullEndpoint, options)
+    return this.http.get<T>(fullEndpoint, options).pipe(take(1));
   }
 
   private getHeaders(user: SocialUser): HttpHeaders {

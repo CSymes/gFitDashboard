@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SocialAuthService, SocialUser } from 'angularx-social-login';
-import { ApiService } from '../utils/api-service.service';
+import { SocialUser } from 'angularx-social-login';
+import { ApiService } from '../utils/api.service';
+import { AuthService } from '../utils/auth.service';
 import { Endpoints } from '../utils/endpoints';
 
 @Component({
@@ -14,13 +14,10 @@ export class HomePageComponent implements OnInit {
   user?: SocialUser;
   data?: string;
 
-  constructor(private authService: SocialAuthService, private api: ApiService, private router: Router) { }
+  constructor(private auth: AuthService, private api: ApiService) { }
 
   ngOnInit(): void {
-    this.authService.authState.subscribe((user) => {
-      // validate that we're actually logged in before trying to do anything
-      if (user === null) this.router.navigate(['/login']);
-
+    this.auth.getUser().subscribe((user) => {
       this.user = user;
       this.loadData(user);
     });
