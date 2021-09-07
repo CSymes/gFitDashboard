@@ -14,7 +14,7 @@ export class ApiService {
 
   apiGet<T>(endpoint: string, user: SocialUser): Observable<T> {
     let fullEndpoint = BASE_URI + endpoint;
-    let options = { headers: this.getHeaders(user) };
+    let options = { headers: this.makeHeaders(user) };
 
     console.log(fullEndpoint);
     console.log(options);
@@ -22,7 +22,18 @@ export class ApiService {
     return this.http.get<T>(fullEndpoint, options).pipe(take(1));
   }
 
-  private getHeaders(user: SocialUser): HttpHeaders {
+  apiPost<T>(endpoint: string, user: SocialUser, body: any): Observable<T> {
+    let fullEndpoint = BASE_URI + endpoint;
+    let options = { headers: this.makeHeaders(user) };
+
+    console.log(fullEndpoint);
+    console.log(options);
+    console.log(body);
+
+    return this.http.post<T>(fullEndpoint, body, options).pipe(take(1));
+  }
+
+  private makeHeaders(user: SocialUser): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + user.response.access_token

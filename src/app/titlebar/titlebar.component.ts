@@ -5,11 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './titlebar.component.html',
   styleUrls: ['./titlebar.component.css']
 })
-export class TitlebarComponent implements OnInit {
+export class TitlebarComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
