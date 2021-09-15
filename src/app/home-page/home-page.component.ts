@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SocialUser } from 'angularx-social-login';
 import moment from 'moment';
+import { BarConfig } from '../chart-configs/bar';
 import { AggregateDataBody } from '../utils/api-queries';
 import { ApiService } from '../utils/api.service';
 import { AuthService } from '../utils/auth.service';
@@ -16,7 +17,13 @@ export class HomePageComponent implements OnInit {
   user?: SocialUser;
   data?: string;
 
-  constructor(private auth: AuthService, private api: ApiService) { }
+  graphConfig: BarConfig;
+  graphData: any;
+
+  constructor(private auth: AuthService, private api: ApiService) {
+
+    this.graphConfig = new BarConfig('Time', 'Steps');
+  }
 
   ngOnInit(): void {
     this.auth.getUser().subscribe((user) => {
@@ -50,9 +57,18 @@ export class HomePageComponent implements OnInit {
       }
     }
 
-    this.api.apiPost<string>(Endpoints.getAggregatedData, user, stepBody).subscribe((data) => {
+    this.api.apiPost<any>(Endpoints.getAggregatedData, user, stepBody).subscribe((data) => {
       console.log(data);
       this.data = JSON.stringify(data);
+
+      this.graphData = data.bucket.map((item: any) => {
+        return {
+          name: item.startTimeMillis,
+          value: item.dataset[0].point[0].value[0].intVal
+        }
+      });
+
+      console.log(this.graphData);
     });
   }
 }
