@@ -13,8 +13,6 @@ export const DEFAULT_SIZE: [number, number] = [
   /* Y */ 300
 ]
 
-export interface GenericChartConfig { }
-
 export interface TimeWindow {
   type: moment.unitOfTime.Base
   length: number

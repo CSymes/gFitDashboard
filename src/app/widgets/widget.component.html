@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="graphConfig">
   <!-- https://swimlane.gitbook.io/ngx-charts/examples/bar-charts/vertical-bar-chart -->
   <ngx-charts-bar-vertical [view]="graphConfig.viewport" [results]="graphData" [xAxis]="graphConfig.showXAxis"
     [yAxis]="graphConfig.showYAxis" [legend]="graphConfig.showLegend" [showXAxisLabel]="graphConfig.showXAxisLabel"

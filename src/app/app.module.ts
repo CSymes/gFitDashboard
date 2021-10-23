@@ -12,9 +12,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { TitlebarComponent } from './titlebar/titlebar.component';
 import { ReadScopes } from './utils/endpoints';
-import { StepsWidgetComponent } from './widgets/steps/steps.component';
-import { WeightComponent } from './widgets/weight/weight.component';
-import { GenericWidgetComponent } from './widgets/generic-widget.component';
+import { WidgetComponent } from './widgets/widget.component';
 
 @NgModule({
   declarations: [
@@ -23,9 +21,7 @@ import { GenericWidgetComponent } from './widgets/generic-widget.component';
     LoginPageComponent,
     TitlebarComponent,
     HomePageComponent,
-    StepsWidgetComponent,
-    WeightComponent,
-    GenericWidgetComponent
+    WidgetComponent
   ],
   imports: [
     BrowserModule,

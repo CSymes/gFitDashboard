@@ -1,6 +1,6 @@
-import { COLOUR_SCHEME, DEFAULT_SIZE, GenericChartConfig } from "./common-interfaces";
+import { COLOUR_SCHEME, DEFAULT_SIZE } from "./common-interfaces";
 
-export class BarChartConfig implements GenericChartConfig {
+export class BarChartConfig {
   showXAxis = true;
   showYAxis = true;
   showLegend = false;

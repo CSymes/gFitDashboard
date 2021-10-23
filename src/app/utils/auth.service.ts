@@ -19,8 +19,6 @@ export class AuthService implements OnDestroy {
 
   getUser(): Observable<SocialUser> {
 
-    console.log(this.user);
-
     // not currently logged in, redirect to the login page
     if (this.user === null) {
       this.pleaseLogin();

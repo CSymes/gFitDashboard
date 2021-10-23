@@ -10,5 +10,6 @@
 
 <br>
 
-<app-widget-steps [user]="user"></app-widget-steps>
-<app-widget-weight [user]="user"></app-widget-weight>
+<div *ngIf="user">
+  <app-widget [user]="user" *ngFor="let config of chartConfigs" [config]="config"></app-widget>
+</div>
