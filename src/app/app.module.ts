@@ -14,6 +14,7 @@ import { TitlebarComponent } from './titlebar/titlebar.component';
 import { ReadScopes } from './utils/endpoints';
 import { StepsWidgetComponent } from './widgets/steps/steps.component';
 import { WeightComponent } from './widgets/weight/weight.component';
+import { GenericWidgetComponent } from './widgets/generic-widget.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { WeightComponent } from './widgets/weight/weight.component';
     TitlebarComponent,
     HomePageComponent,
     StepsWidgetComponent,
-    WeightComponent
+    WeightComponent,
+    GenericWidgetComponent
   ],
   imports: [
     BrowserModule,
