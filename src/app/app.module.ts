@@ -12,6 +12,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { TitlebarComponent } from './titlebar/titlebar.component';
 import { ReadScopes } from './utils/endpoints';
+import { StepsWidgetComponent } from './widgets/steps/steps.component';
+import { WeightComponent } from './widgets/weight/weight.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { ReadScopes } from './utils/endpoints';
     LandingPageComponent,
     LoginPageComponent,
     TitlebarComponent,
-    HomePageComponent
+    HomePageComponent,
+    StepsWidgetComponent,
+    WeightComponent
   ],
   imports: [
     BrowserModule,
