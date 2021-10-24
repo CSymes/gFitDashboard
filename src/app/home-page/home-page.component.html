@@ -2,6 +2,24 @@
   <mat-spinner></mat-spinner>
 </div>
 
-<div *ngIf="user">
-  <app-widget [user]="user" *ngFor="let config of chartConfigs" [config]="config"></app-widget>
-</div>
+<mat-sidenav-container autosize *ngIf="user">
+
+  <mat-sidenav opened mode="side">
+    <mat-action-list>
+      <button mat-list-item *ngFor="let kv of chartConfigs | keyvalue" (click)="currentPanel=kv.key"> {{ kv.key }} </button>
+    </mat-action-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content [ngSwitch]="currentPanel">
+
+    <div *ngFor="let kv of chartConfigs | keyvalue">
+      <div *ngSwitchCase="kv.key" class="widgets">
+        <h1>{{ kv.key }}</h1>
+        <app-widget [user]="user" *ngFor="let config of kv.value" [config]="config"></app-widget>
+        <br>
+      </div>
+    </div>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

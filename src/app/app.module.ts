@@ -17,6 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LogoutPageComponent } from './logout-page/logout-page.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { LogoutPageComponent } from './logout-page/logout-page.component';
     BrowserAnimationsModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule
   ],
   providers: [{
     provide: 'SocialAuthServiceConfig',

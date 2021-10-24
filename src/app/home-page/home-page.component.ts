@@ -17,16 +17,24 @@ import { WeightWidget } from '../widgets/definitions/weight.widget';
 export class HomePageComponent implements OnInit {
 
   user!: SocialUser;
-  chartConfigs: AbstractWidget[];
+  chartConfigs: Record<string, AbstractWidget[]>;
+  currentPanel: string;
 
   constructor(private auth: AuthService, private api: ApiService) {
-    this.chartConfigs = [
-      new CaloriesWidget(),
-      new StepsWidget(),
-      new WeightWidget(),
-      new HeightWidget(),
-      new HeartRateWidget()
-    ]
+    this.chartConfigs = {
+      "Activity": [
+        new CaloriesWidget(),
+        new StepsWidget(),
+        new HeartRateWidget()
+      ],
+      "Body": [
+        new WeightWidget(),
+        new HeightWidget(),
+      ]
+    }
+
+    // default to first category
+    this.currentPanel = Object.keys(this.chartConfigs)[0];
   }
 
   ngOnInit(): void {
