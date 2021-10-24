@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SocialUser } from 'angularx-social-login';
 import { ApiService } from '../utils/api.service';
 import { AuthService } from '../utils/auth.service';
-import { AbstractWidgetConfig } from '../widgets/definitions/abstract.widget';
+import { AbstractWidget } from '../widgets/definitions/abstract.widget';
 import { StepsWidget } from '../widgets/definitions/steps.widget';
 import { WeightWidget } from '../widgets/definitions/weight.widget';
 
@@ -14,7 +14,7 @@ import { WeightWidget } from '../widgets/definitions/weight.widget';
 export class HomePageComponent implements OnInit {
 
   user!: SocialUser;
-  chartConfigs: AbstractWidgetConfig[];
+  chartConfigs: AbstractWidget[];
 
   constructor(private auth: AuthService, private api: ApiService) {
     this.chartConfigs = [

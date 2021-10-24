@@ -1,6 +1,7 @@
-import { AbstractWidgetConfig, GraphType } from "./abstract.widget";
+import { TimeWindow } from "src/app/chart-configs/common-interfaces";
+import { AbstractWidget, GraphType } from "./abstract.widget";
 
-export class WeightWidget extends AbstractWidgetConfig {
+export class WeightWidget extends AbstractWidget {
 
   getName(): string {
     return 'Weight';
@@ -12,6 +13,13 @@ export class WeightWidget extends AbstractWidgetConfig {
 
   isInteger(): boolean {
     return false;
+  }
+
+  createTimeWindow(): TimeWindow {
+    return {
+      type: 'years',
+      length: 1
+    };
   }
 
   getType(): GraphType {

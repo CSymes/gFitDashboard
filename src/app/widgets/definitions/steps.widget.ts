@@ -1,6 +1,6 @@
-import { AbstractWidgetConfig } from "./abstract.widget";
+import { AbstractWidget } from "./abstract.widget";
 
-export class StepsWidget extends AbstractWidgetConfig {
+export class StepsWidget extends AbstractWidget {
   getName(): string {
     return 'Steps';
   }

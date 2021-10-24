@@ -10,12 +10,21 @@ export class ChartConfig {
   colourScheme = COLOUR_SCHEME;
   viewport = DEFAULT_SIZE;
   curve = curveBasis
+  timeline = false;
 
   xAxisLabel: string;
   yAxisLabel: string;
 
+  xScaleMin: number = 0;
+  xScaleMax: number = 0;
+
   constructor(xLabel: string, yLabel: string) {
     this.xAxisLabel = xLabel;
     this.yAxisLabel = yLabel;
+  }
+
+  setTimeBounds(min: number, max: number) {
+    this.xScaleMin = min;
+    this.xScaleMax = max;
   }
 }

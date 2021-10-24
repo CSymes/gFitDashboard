@@ -12,12 +12,12 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  apiGet<T>(endpoint: string, user: SocialUser): Observable<T> {
+  apiGet<T>(endpoint: string, user: SocialUser, params: any = null): Observable<T> {
     let fullEndpoint = BASE_URI + endpoint;
-    let options = { headers: this.makeHeaders(user) };
-
-    console.log(fullEndpoint);
-    console.log(options);
+    let options = {
+      headers: this.makeHeaders(user),
+      params: params
+    };
 
     return this.http.get<T>(fullEndpoint, options).pipe(take(1));
   }
@@ -25,10 +25,6 @@ export class ApiService {
   apiPost<T>(endpoint: string, user: SocialUser, body: any): Observable<T> {
     let fullEndpoint = BASE_URI + endpoint;
     let options = { headers: this.makeHeaders(user) };
-
-    console.log(fullEndpoint);
-    console.log(options);
-    console.log(body);
 
     return this.http.post<T>(fullEndpoint, body, options).pipe(take(1));
   }
