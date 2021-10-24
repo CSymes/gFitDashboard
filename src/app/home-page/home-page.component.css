@@ -1,4 +1,5 @@
-.clearfix {
-  display: block;
-  clear: both;
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

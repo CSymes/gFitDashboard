@@ -1,14 +1,6 @@
-<p>Welcome, {{ user?.name }}</p>
-
-<br>
-
-{{user?.response.access_token}}
-
-<br><br>
-
-{{user?.response.scope}}
-
-<br>
+<div *ngIf="!user" class="loading">
+  <mat-spinner></mat-spinner>
+</div>
 
 <div *ngIf="user">
   <app-widget [user]="user" *ngFor="let config of chartConfigs" [config]="config"></app-widget>

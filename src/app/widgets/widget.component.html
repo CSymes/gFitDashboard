@@ -1,5 +1,14 @@
+<div *ngIf="graphData">
+
+<h2>{{ config.getName() }} —
+  {{ moment(graphConfig.xScaleMin*1000).format('DD/MM/YYYY') }}
+  -
+  {{ moment(graphConfig.xScaleMax*1000).format('DD/MM/YYYY') }}
+</h2>
+
+
 <!-- https://swimlane.gitbook.io/ngx-charts/examples/bar-charts/vertical-bar-chart -->
-<div *ngIf="graphData && config?.getType() === GraphType.Line">
+<div *ngIf="config?.getType() === GraphType.Line">
   <ngx-charts-line-chart
     [view]="graphConfig.viewport"
     [results]="graphData"
@@ -14,11 +23,23 @@
     [xScaleMin]="graphConfig.xScaleMin"
     [xScaleMax]="graphConfig.xScaleMax"
     [curve]="graphConfig.curve"
-  > </ngx-charts-line-chart>
-  <div class="clearfix"></div>
+  >
+    <ng-template #tooltipTemplate let-model="model">
+      <span class="chart__tooltip-sub-label">
+        {{ model.name | date : 'dd/MM/YYYY' }}
+        <br>
+        {{ model.series }}: {{ model.value | number : '1.0-1' }} {{ graphConfig.units }}
+      </span>
+    </ng-template>
+    <ng-template #seriesTooltipTemplate let-model="model">
+      <span class="chart__tooltip-sub-label">
+        {{ model[0].value | number : '1.0-1' }} {{ graphConfig.units }}
+      </span>
+    </ng-template>
+  </ngx-charts-line-chart>
 </div>
 
-<div *ngIf="graphData && config?.getType() === GraphType.Bar">
+<div *ngIf="config?.getType() === GraphType.Bar">
   <ngx-charts-bar-vertical
     [view]="graphConfig.viewport"
     [results]="graphData"
@@ -29,6 +50,15 @@
     [showYAxisLabel]="graphConfig.showYAxisLabel"
     [xAxisLabel]="graphConfig.xAxisLabel"
     [yAxisLabel]="graphConfig.yAxisLabel"
-  > </ngx-charts-bar-vertical>
-  <div class="clearfix"></div>
+  >
+    <ng-template #tooltipTemplate let-model="model">
+      <span class="chart__tooltip-sub-label">
+        {{ model.name | date : 'dd/MM/YYYY' }}
+        <br>
+        {{ model.value | number : '1.0-1' }} {{ graphConfig.units }}
+      </span>
+    </ng-template>
+  </ngx-charts-bar-vertical>
+</div>
+
 </div>

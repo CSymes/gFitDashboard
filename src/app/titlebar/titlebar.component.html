@@ -1,3 +1,16 @@
-<nav>
-  <a class="b-login" routerLink="/login">Login</a>
-</nav>
+<mat-toolbar color="primary">
+
+  <div class="container" *ngIf="user !== undefined">
+
+    <div class="title">
+      <span>{{ dispText }}</span>
+    </div>
+
+    <span class="spacer"></span>
+
+    <button mat-raised-button routerLink="/login" *ngIf="!user">Login</button>
+    <button mat-stroked-button routerLink="/logout" *ngIf="user">Logout</button>
+
+  </div>
+
+</mat-toolbar>

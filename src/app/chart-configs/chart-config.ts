@@ -14,13 +14,15 @@ export class ChartConfig {
 
   xAxisLabel: string;
   yAxisLabel: string;
+  units: string;
 
   xScaleMin: number;
   xScaleMax: number;
 
-  constructor(xLabel: string, yLabel: string) {
+  constructor(xLabel: string, yLabel: string, units: string) {
     this.xAxisLabel = xLabel;
-    this.yAxisLabel = yLabel;
+    this.yAxisLabel = `${yLabel} (${units})`;
+    this.units = units;
 
     this.xScaleMin = 0;
     this.xScaleMax = 0;

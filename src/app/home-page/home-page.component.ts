@@ -24,9 +24,16 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.auth.getUser().subscribe((user) => {
+    this.auth.observe.subscribe((user) => {
+      if (!user) {
+        this.auth.exitSecureArea();
+        return;
+      }
+
       this.user = user;
-      console.log(user);
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      console.log(user.response.access_token);
     });
   }
 }

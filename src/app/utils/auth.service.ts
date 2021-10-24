@@ -1,8 +1,7 @@
-import { OnDestroy } from '@angular/core';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { SocialAuthService, SocialUser } from 'angularx-social-login';
-import { EMPTY, Observable, Observer, Subscription } from 'rxjs';
+import { GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
+import { from, Observable, Subject, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 @Injectable({
@@ -10,46 +9,45 @@ import { take } from 'rxjs/operators';
 })
 export class AuthService implements OnDestroy {
 
-  private user?: SocialUser;
+  private _user: SocialUser | null;
   private authSub?: Subscription;
 
   constructor(private authService: SocialAuthService, private router: Router) {
+    this._user = null;
     this.launch();
   }
 
-  getUser(): Observable<SocialUser> {
+  signIn(): Observable<SocialUser> {
+    const sub = new Subject<SocialUser>();
+    // wait until the service is loaded
+    this.authService.initState.pipe(take(1)).subscribe(_ => {
+      // then request a Google sign-in
+      void this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
+        this._user = user;
 
-    // not currently logged in, redirect to the login page
-    if (this.user === null) {
-      this.pleaseLogin();
-      return EMPTY;
-    }
-
-    // validate that the session has loaded
-    else if (this.user === undefined) {
-      // wait for the authService to notify us that it's available
-      return this.authService.authState.pipe(take(1));
-      // TODO this doesn't catch if we get a null back here
-    }
-
-    // all systems nominal
-    else {
-      return new Observable((observer: Observer<SocialUser>) => {
-        // push the user object out and close the observer
-        observer.next(this.user as SocialUser);
-        observer.complete();
+        sub.next(user);
+        sub.complete();
       });
-    }
+    })
+
+    return sub;
   }
 
+  signOut(): Observable<void> {
+    return from(this.authService.signOut());
+  }
+
+  get observe(): Observable<SocialUser | null> { return this.authService.authState; }
+  get user(): SocialUser | null { return this._user; }
+
   launch(): void {
-    this.authSub = this.authService.authState.subscribe((user) => {
-      this.user = user;
+    this.authSub = this.observe.subscribe((user) => {
+      this._user = user;
     });
   }
 
-  pleaseLogin(): void {
-    void this.router.navigate(['/login']);
+  exitSecureArea(): void {
+    void this.router.navigate(['/']);
   }
 
   ngOnDestroy(): void {

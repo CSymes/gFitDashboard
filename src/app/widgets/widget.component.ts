@@ -151,8 +151,12 @@ export class WidgetComponent {
     return val.fpVal ?? val.intVal ?? 0;
   }
 
-  // expose GraphType to the template
+  // expose types/libraries to the template
   get GraphType(): typeof GraphType {
     return GraphType;
+  }
+
+  get moment(): typeof moment {
+    return moment;
   }
 }

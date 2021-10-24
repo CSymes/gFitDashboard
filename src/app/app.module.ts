@@ -13,6 +13,10 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { TitlebarComponent } from './titlebar/titlebar.component';
 import { ReadScopes } from './utils/endpoints';
 import { WidgetComponent } from './widgets/widget.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { LogoutPageComponent } from './logout-page/logout-page.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +25,8 @@ import { WidgetComponent } from './widgets/widget.component';
     LoginPageComponent,
     TitlebarComponent,
     HomePageComponent,
-    WidgetComponent
+    WidgetComponent,
+    LogoutPageComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,10 @@ import { WidgetComponent } from './widgets/widget.component';
     SocialLoginModule,
     HttpClientModule,
     NgxChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatToolbarModule
   ],
   providers: [{
     provide: 'SocialAuthServiceConfig',

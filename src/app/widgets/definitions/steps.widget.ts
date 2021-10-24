@@ -5,6 +5,10 @@ export class StepsWidget extends AbstractWidget {
     return 'Steps';
   }
 
+  getUnits(): string {
+    return 'steps'
+  }
+
   getDataTypeName(): string {
     return 'com.google.step_count.delta';
   }

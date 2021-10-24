@@ -7,6 +7,10 @@ export class WeightWidget extends AbstractWidget {
     return 'Weight';
   }
 
+  getUnits(): string {
+    return 'kg';
+  }
+
   isAggregated(): boolean {
     return false;
   }

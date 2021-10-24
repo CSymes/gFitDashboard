@@ -26,7 +26,7 @@ export abstract class AbstractWidget {
   }
 
   createChartConfig(): ChartConfig {
-    return new ChartConfig('Time', this.getName());
+    return new ChartConfig('Time', this.getName(), this.getUnits());
   }
 
   isAggregated(): boolean {
@@ -42,6 +42,8 @@ export abstract class AbstractWidget {
   }
 
   abstract getName(): string;
+
+  abstract getUnits(): string;
 
   abstract getDataTypeName(): string;
 }
