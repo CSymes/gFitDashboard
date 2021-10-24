@@ -94,7 +94,7 @@ export class WidgetComponent {
     this.api.apiGet<DataBody>(ept, this.user, params).subscribe(data => {
       const formattedData: ChartSingleSeries = data.point.map(item => {
         return {
-          name: this.getTimeSeconds(item).toString(),
+          name: moment(this.getTimeSeconds(item) * 1000).toDate(),
           value: this.getValue(item.value[0])
         }
       });
@@ -131,7 +131,7 @@ export class WidgetComponent {
         return item.dataset[0].point.length > 0;
       }).map(item => {
         return {
-          name: this.getTimeSeconds(item).toString(),
+          name: moment(this.getTimeSeconds(item) * 1000).toDate(),
           value: this.getValue(item.dataset[0].point[0].value[0])
         }
       });

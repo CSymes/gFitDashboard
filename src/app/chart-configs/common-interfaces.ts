@@ -14,7 +14,7 @@ export const DEFAULT_SIZE: [number, number] = [
 ]
 
 export interface ChartDataPoint {
-  name: string,
+  name: string | Date,
   value: number
 }
 
