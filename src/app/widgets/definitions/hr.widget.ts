@@ -1,14 +1,14 @@
 import { TimeWindow } from "src/app/chart-configs/common-interfaces";
 import { AbstractWidget, GraphType } from "./abstract.widget";
 
-export class WeightWidget extends AbstractWidget {
+export class HeartRateWidget extends AbstractWidget {
 
   getName(): string {
-    return 'Weight';
+    return 'Heart Rate';
   }
 
   getUnits(): string {
-    return 'kg';
+    return 'BPM';
   }
 
   isAggregated(): boolean {
@@ -17,8 +17,8 @@ export class WeightWidget extends AbstractWidget {
 
   createTimeWindow(): TimeWindow {
     return {
-      type: 'years',
-      length: 1
+      type: 'month',
+      length: 3
     };
   }
 
@@ -27,7 +27,6 @@ export class WeightWidget extends AbstractWidget {
   }
 
   getDataTypeName(): string {
-    return 'derived:com.google.weight:com.google.android.gms:merge_weight';
-    // return 'com.google.weight';
+    return 'derived:com.google.heart_rate.bpm:com.google.android.gms:merge_heart_rate_bpm';
   }
 }

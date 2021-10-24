@@ -3,6 +3,9 @@ import { SocialUser } from 'angularx-social-login';
 import { ApiService } from '../utils/api.service';
 import { AuthService } from '../utils/auth.service';
 import { AbstractWidget } from '../widgets/definitions/abstract.widget';
+import { CaloriesWidget } from '../widgets/definitions/calories.widget';
+import { HeightWidget } from '../widgets/definitions/height.widget';
+import { HeartRateWidget } from '../widgets/definitions/hr.widget';
 import { StepsWidget } from '../widgets/definitions/steps.widget';
 import { WeightWidget } from '../widgets/definitions/weight.widget';
 
@@ -18,8 +21,11 @@ export class HomePageComponent implements OnInit {
 
   constructor(private auth: AuthService, private api: ApiService) {
     this.chartConfigs = [
+      new CaloriesWidget(),
       new StepsWidget(),
-      new WeightWidget()
+      new WeightWidget(),
+      new HeightWidget(),
+      new HeartRateWidget()
     ]
   }
 

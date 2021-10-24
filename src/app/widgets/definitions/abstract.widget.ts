@@ -33,10 +33,6 @@ export abstract class AbstractWidget {
     return true;
   }
 
-  isInteger(): boolean {
-    return true;
-  }
-
   getType(): GraphType {
     return GraphType.Bar;
   }

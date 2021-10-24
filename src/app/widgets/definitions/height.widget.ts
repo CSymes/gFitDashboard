@@ -1,14 +1,14 @@
 import { TimeWindow } from "src/app/chart-configs/common-interfaces";
 import { AbstractWidget, GraphType } from "./abstract.widget";
 
-export class WeightWidget extends AbstractWidget {
+export class HeightWidget extends AbstractWidget {
 
   getName(): string {
-    return 'Weight';
+    return 'Height';
   }
 
   getUnits(): string {
-    return 'kg';
+    return 'm';
   }
 
   isAggregated(): boolean {
@@ -27,7 +27,6 @@ export class WeightWidget extends AbstractWidget {
   }
 
   getDataTypeName(): string {
-    return 'derived:com.google.weight:com.google.android.gms:merge_weight';
-    // return 'com.google.weight';
+    return 'derived:com.google.height:com.google.android.gms:merge_height';
   }
 }
