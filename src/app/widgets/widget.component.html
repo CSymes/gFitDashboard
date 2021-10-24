@@ -1,8 +1,31 @@
-<div *ngIf="graphConfig">
-  <!-- https://swimlane.gitbook.io/ngx-charts/examples/bar-charts/vertical-bar-chart -->
-  <ngx-charts-bar-vertical [view]="graphConfig.viewport" [results]="graphData" [xAxis]="graphConfig.showXAxis"
-    [yAxis]="graphConfig.showYAxis" [legend]="graphConfig.showLegend" [showXAxisLabel]="graphConfig.showXAxisLabel"
-    [showYAxisLabel]="graphConfig.showYAxisLabel" [xAxisLabel]="graphConfig.xAxisLabel"
-    [yAxisLabel]="graphConfig.yAxisLabel"> </ngx-charts-bar-vertical>
+<!-- https://swimlane.gitbook.io/ngx-charts/examples/bar-charts/vertical-bar-chart -->
+<div *ngIf="graphData && config?.getType() === GraphType.Line">
+  <ngx-charts-line-chart
+    [view]="graphConfig.viewport"
+    [results]="graphData"
+    [xAxis]="graphConfig.showXAxis"
+    [yAxis]="graphConfig.showYAxis"
+    [legend]="graphConfig.showLegend"
+    [showXAxisLabel]="graphConfig.showXAxisLabel"
+    [showYAxisLabel]="graphConfig.showYAxisLabel"
+    [xAxisLabel]="graphConfig.xAxisLabel"
+    [yAxisLabel]="graphConfig.yAxisLabel"
+    [curve]="graphConfig.curve"
+  > </ngx-charts-line-chart>
+  <div class="clearfix"></div>
+</div>
+
+<div *ngIf="graphData && config?.getType() === GraphType.Bar">
+  <ngx-charts-bar-vertical
+    [view]="graphConfig.viewport"
+    [results]="graphData"
+    [xAxis]="graphConfig.showXAxis"
+    [yAxis]="graphConfig.showYAxis"
+    [legend]="graphConfig.showLegend"
+    [showXAxisLabel]="graphConfig.showXAxisLabel"
+    [showYAxisLabel]="graphConfig.showYAxisLabel"
+    [xAxisLabel]="graphConfig.xAxisLabel"
+    [yAxisLabel]="graphConfig.yAxisLabel"
+  > </ngx-charts-bar-vertical>
   <div class="clearfix"></div>
 </div>

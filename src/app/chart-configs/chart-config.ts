@@ -1,6 +1,7 @@
 import { COLOUR_SCHEME, DEFAULT_SIZE } from "./common-interfaces";
+import { curveBasis } from 'd3-shape';
 
-export class BarChartConfig {
+export class ChartConfig {
   showXAxis = true;
   showYAxis = true;
   showLegend = false;
@@ -8,6 +9,7 @@ export class BarChartConfig {
   showYAxisLabel = true;
   colourScheme = COLOUR_SCHEME;
   viewport = DEFAULT_SIZE;
+  curve = curveBasis
 
   xAxisLabel: string;
   yAxisLabel: string;

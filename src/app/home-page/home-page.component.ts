@@ -18,7 +18,7 @@ export class HomePageComponent implements OnInit {
 
   constructor(private auth: AuthService, private api: ApiService) {
     this.chartConfigs = [
-      // new StepsWidget(),
+      new StepsWidget(),
       new WeightWidget()
     ]
   }

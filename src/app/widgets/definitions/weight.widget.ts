@@ -1,12 +1,25 @@
-import { BarChartConfig } from "src/app/chart-configs/bar";
-import { AbstractWidgetConfig } from "./abstract.widget";
+import { AbstractWidgetConfig, GraphType } from "./abstract.widget";
 
 export class WeightWidget extends AbstractWidgetConfig {
-  createChartConfig(): BarChartConfig {
-    return new BarChartConfig('Time', 'Weight');
+
+  getName(): string {
+    return 'Weight';
+  }
+
+  isAggregated(): boolean {
+    return false;
+  }
+
+  isInteger(): boolean {
+    return false;
+  }
+
+  getType(): GraphType {
+    return GraphType.Line;
   }
 
   getDataTypeName(): string {
-    return 'com.google.weight';
+    return 'derived:com.google.weight:com.google.android.gms:merge_weight';
+    // return 'com.google.weight';
   }
 }

@@ -13,6 +13,19 @@ export const DEFAULT_SIZE: [number, number] = [
   /* Y */ 300
 ]
 
+interface ChartDataPoint {
+  name: string,
+  value: number
+}
+
+interface ChartSeries {
+  name: string,
+  series: ChartDataPoint[]
+}
+
+export type ChartMultiSeries = ChartSeries[]
+export type ChartSingleSeries = ChartDataPoint[]
+
 export interface TimeWindow {
   type: moment.unitOfTime.Base
   length: number

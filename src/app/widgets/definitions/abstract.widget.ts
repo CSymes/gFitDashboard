@@ -1,23 +1,44 @@
-import { BarChartConfig } from '../../chart-configs/bar';
+import { ChartConfig } from 'src/app/chart-configs/chart-config';
 import { TimeBucket, TimeWindow } from '../../chart-configs/common-interfaces';
 
 export abstract class AbstractWidgetConfig {
 
   timeWindow: TimeWindow;
-  timeBucket: TimeBucket;
+  aggregationBucket: TimeBucket;
 
   constructor() {
     this.timeWindow = {
       type: 'days',
       length: 10
     };
-    this.timeBucket = {
+    this.aggregationBucket = {
       type: 'day',
       length: 1
     }
   }
 
-  abstract createChartConfig(): BarChartConfig;
+  createChartConfig(): ChartConfig {
+    return new ChartConfig('Time', this.getName());
+  }
+
+  isAggregated(): boolean {
+    return true;
+  }
+
+  isInteger(): boolean {
+    return true;
+  }
+
+  getType(): GraphType {
+    return GraphType.Bar;
+  }
+
+  abstract getName(): string;
 
   abstract getDataTypeName(): string;
+}
+
+export enum GraphType {
+  Bar,
+  Line
 }

@@ -1,9 +1,8 @@
-import { BarChartConfig } from "src/app/chart-configs/bar";
 import { AbstractWidgetConfig } from "./abstract.widget";
 
 export class StepsWidget extends AbstractWidgetConfig {
-  createChartConfig(): BarChartConfig {
-    return new BarChartConfig('Time', 'Steps');
+  getName(): string {
+    return 'Steps';
   }
 
   getDataTypeName(): string {
