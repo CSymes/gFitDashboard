@@ -15,15 +15,18 @@ export class ChartConfig {
   xAxisLabel: string;
   yAxisLabel: string;
 
-  xScaleMin: number = 0;
-  xScaleMax: number = 0;
+  xScaleMin: number;
+  xScaleMax: number;
 
   constructor(xLabel: string, yLabel: string) {
     this.xAxisLabel = xLabel;
     this.yAxisLabel = yLabel;
+
+    this.xScaleMin = 0;
+    this.xScaleMax = 0;
   }
 
-  setTimeBounds(min: number, max: number) {
+  setTimeBounds(min: number, max: number): void {
     this.xScaleMin = min;
     this.xScaleMax = max;
   }

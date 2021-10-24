@@ -3,8 +3,8 @@ import { SocialUser } from 'angularx-social-login';
 import moment from 'moment';
 import { Observable, Subject } from 'rxjs';
 import { ChartConfig } from '../chart-configs/chart-config';
-import { ChartSingleSeries, TimeBucket } from '../chart-configs/common-interfaces';
-import { AggregateDataBody } from '../utils/api-queries';
+import { ChartMultiSeries, ChartSingleSeries, TimeBucket } from '../chart-configs/common-interfaces';
+import { AggDataBody, AggregateDataRequestBody, DataBody, PossibleTime, PossibleValue } from '../utils/api-queries';
 import { ApiService } from '../utils/api.service';
 import { Endpoints } from '../utils/endpoints';
 import { AbstractWidget, GraphType } from './definitions/abstract.widget';
@@ -19,18 +19,17 @@ export class WidgetComponent {
   _config!: AbstractWidget;
   _user!: SocialUser;
 
-  graphData: any;
+  graphData!: ChartSingleSeries | ChartMultiSeries;
   graphConfig!: ChartConfig;
 
-  get config() { return this._config; }
-  get user() { return this._user; }
-
+  get config(): AbstractWidget { return this._config; }
   @Input() set config(val: AbstractWidget) {
     this._config = val;
     this.graphConfig = val.createChartConfig();
     this.loadData();
   }
 
+  get user(): SocialUser { return this._user; }
   @Input() set user(val: SocialUser) {
     this._user = val;
     this.loadData();
@@ -47,7 +46,7 @@ export class WidgetComponent {
 
     this.graphConfig.setTimeBounds(startTimeS, endTimeS);
 
-    let sub: Observable<any>;
+    let sub: Observable<ChartSingleSeries>;
     if (this.config.isAggregated()) {
       sub = this.loadAggData(startTimeS, endTimeS, this.config.aggregationBucket);
     } else {
@@ -73,16 +72,16 @@ export class WidgetComponent {
       });
     }
 
-    sub.subscribe((data: any) => {
+    sub.subscribe((data: ChartSingleSeries) => {
       // convert to ChartMultiSeries if necessary
       if (this.config.getType() == GraphType.Line) {
-        data = [{
+        this.graphData = [{
           'name': this.config.getName(),
           'series': data
         }];
+      } else {
+        this.graphData = data;
       }
-
-      this.graphData = data;
     });
   }
 
@@ -90,15 +89,12 @@ export class WidgetComponent {
     const output = new Subject<ChartSingleSeries>();
     const ept = Endpoints.getDataSources + this.config.getDataTypeName() + `/datasets/${start * 1e9}-${end * 1e9}`;
 
-    const params: any = {}
-    if (limit) {
-      params.limit = limit;
-    }
+    const params = (limit ? { limit } : undefined);
 
-    this.api.apiGet<any>(ept, this.user, params).subscribe((data) => {
-      const formattedData = data.point.map((item: any) => {
+    this.api.apiGet<DataBody>(ept, this.user, params).subscribe(data => {
+      const formattedData: ChartSingleSeries = data.point.map(item => {
         return {
-          name: this.getTimeSeconds(item),
+          name: this.getTimeSeconds(item).toString(),
           value: this.getValue(item.value[0])
         }
       });
@@ -113,7 +109,7 @@ export class WidgetComponent {
   loadAggData(start: number, end: number, agg: TimeBucket): Observable<ChartSingleSeries> {
     const output = new Subject<ChartSingleSeries>();
 
-    var aggDefinition: AggregateDataBody = {
+    const aggDefinition: AggregateDataRequestBody = {
       startTimeMillis: start * 1e3,
       endTimeMillis: end * 1e3,
       aggregateBy: [
@@ -130,12 +126,12 @@ export class WidgetComponent {
       }
     }
 
-    this.api.apiPost<any>(Endpoints.getAggregatedData, this.user, aggDefinition).subscribe((data) => {
-      const formattedData = data.bucket.filter((item: any) => {
+    this.api.apiPost<AggDataBody>(Endpoints.getAggregatedData, this.user, aggDefinition).subscribe((data) => {
+      const formattedData: ChartSingleSeries = data.bucket.filter(item => {
         return item.dataset[0].point.length > 0;
-      }).map((item: any) => {
+      }).map(item => {
         return {
-          name: this.getTimeSeconds(item),
+          name: this.getTimeSeconds(item).toString(),
           value: this.getValue(item.dataset[0].point[0].value[0])
         }
       });
@@ -147,16 +143,16 @@ export class WidgetComponent {
     return output;
   }
 
-  getTimeSeconds(item: any): number {
-    return item.startTimeNanos / 1e9 || item.startTimeMillis / 1e3;
+  getTimeSeconds(item: PossibleTime): number {
+    return ((item.startTimeNanos || 0) / 1e9) || ((item.startTimeMillis || 0) / 1e3) || 0;
   }
 
-  getValue(val: any): string {
-    return this.config.isInteger() ? val.intVal : val.fpVal;
+  getValue(val: PossibleValue): number {
+    return val.fpVal ?? val.intVal ?? 0;
   }
 
   // expose GraphType to the template
-  get GraphType() {
+  get GraphType(): typeof GraphType {
     return GraphType;
   }
 }

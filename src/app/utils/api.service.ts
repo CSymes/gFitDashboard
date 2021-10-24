@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SocialUser } from 'angularx-social-login';
@@ -13,8 +17,8 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   apiGet<T>(endpoint: string, user: SocialUser, params: any = null): Observable<T> {
-    let fullEndpoint = BASE_URI + endpoint;
-    let options = {
+    const fullEndpoint = BASE_URI + endpoint;
+    const options = {
       headers: this.makeHeaders(user),
       params: params
     };
@@ -23,8 +27,8 @@ export class ApiService {
   }
 
   apiPost<T>(endpoint: string, user: SocialUser, body: any): Observable<T> {
-    let fullEndpoint = BASE_URI + endpoint;
-    let options = { headers: this.makeHeaders(user) };
+    const fullEndpoint = BASE_URI + endpoint;
+    const options = { headers: this.makeHeaders(user) };
 
     return this.http.post<T>(fullEndpoint, body, options).pipe(take(1));
   }
@@ -32,7 +36,7 @@ export class ApiService {
   private makeHeaders(user: SocialUser): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + user.response.access_token
+      'Authorization': `Bearer ${String(user.response.access_token)}`
     });
   }
 }

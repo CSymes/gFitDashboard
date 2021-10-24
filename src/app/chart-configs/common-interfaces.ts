@@ -13,12 +13,12 @@ export const DEFAULT_SIZE: [number, number] = [
   /* Y */ 300
 ]
 
-interface ChartDataPoint {
+export interface ChartDataPoint {
   name: string,
   value: number
 }
 
-interface ChartSeries {
+export interface ChartSeries {
   name: string,
   series: ChartDataPoint[]
 }

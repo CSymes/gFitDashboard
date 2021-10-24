@@ -36,10 +36,8 @@ export class AuthService implements OnDestroy {
     else {
       return new Observable((observer: Observer<SocialUser>) => {
         // push the user object out and close the observer
-        observer.next(this.user!);
+        observer.next(this.user as SocialUser);
         observer.complete();
-
-        return { unsubscribe() { } };
       });
     }
   }
@@ -51,7 +49,7 @@ export class AuthService implements OnDestroy {
   }
 
   pleaseLogin(): void {
-    this.router.navigate(['/login']);
+    void this.router.navigate(['/login']);
   }
 
   ngOnDestroy(): void {
