@@ -2,16 +2,20 @@
   <mat-spinner></mat-spinner>
 </div>
 
-<mat-sidenav-container autosize *ngIf="user">
+<div class="container" *ngIf="user">
+  <div class="left">
+    <div class="title">
+      Select Area
+    </div>
 
-  <mat-sidenav opened mode="side">
     <mat-action-list>
-      <button mat-list-item *ngFor="let kv of chartConfigs | keyvalue" (click)="currentPanel=kv.key"> {{ kv.key }} </button>
+      <button mat-list-item *ngFor="let kv of chartConfigs | keyvalue" (click)="currentPanel=kv.key">
+        {{ kv.key }}
+      </button>
     </mat-action-list>
-  </mat-sidenav>
+  </div>
 
-  <mat-sidenav-content [ngSwitch]="currentPanel">
-
+  <div class="right" [ngSwitch]="currentPanel">
     <div *ngFor="let kv of chartConfigs | keyvalue">
       <div *ngSwitchCase="kv.key" class="widgets">
         <h1>{{ kv.key }}</h1>
@@ -19,7 +23,5 @@
         <br>
       </div>
     </div>
-
-  </mat-sidenav-content>
-
-</mat-sidenav-container>
+  </div>
+</div>

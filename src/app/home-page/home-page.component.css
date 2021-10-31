@@ -1,3 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  /* Definitely a better way than this with flex, but it's eluding me and this will do for now */
+  height: calc(100% - 64px);
+}
+
+.left {
+  border-right: 1px rgb(189, 189, 189) solid;
+}
+
+.left .title {
+  font-size: 12pt;
+  margin-bottom: 10px;
+  margin: 15px;
+}
+
+mat-action-list {
+  padding: 0;
+}
+
+mat-action-list :hover {
+  background-color: rgb(220, 220, 220);
+}
+
+mat-action-list button {
+  border-top: 1px rgb(189, 189, 189) solid;
+}
+mat-action-list button:last-of-type {
+  border-bottom: 1px rgb(189, 189, 189) solid;
+}
+
+.right {
+  flex-grow: 1;
+  overflow: auto;
+}
+
 .widgets {
   display: flex;
   flex-direction: column;
@@ -5,5 +42,5 @@
 }
 
 h1 {
-  margin-top: 20px
+  margin-top: 20px;
 }
